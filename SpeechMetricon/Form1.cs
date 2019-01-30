@@ -49,6 +49,8 @@ namespace SpeechMetricon
             inStrings.Clear();
             outStrings.Clear();
             SERValue = 0; WERValue = 0; WCRValue = 0;
+            dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
 
             var inFile = File.ReadAllLines(openInStrings.FileName);
             var outFile = File.ReadAllLines(openOutStrings.FileName);
@@ -106,8 +108,8 @@ namespace SpeechMetricon
             var punctuationIn = a.Where(Char.IsPunctuation).Distinct().ToArray();
             var punctuationOut = b.Where(Char.IsPunctuation).Distinct().ToArray();
 
-            var r = a.Split().Select(z => z.Trim(punctuationIn));
-            var h = b.Split().Select(z => z.Trim(punctuationOut));
+            var r = a.ToLower().Split().Select(z => z.Trim(punctuationIn));
+            var h = b.ToLower().Split().Select(z => z.Trim(punctuationOut));
 
             double deletion, substitution, insertion, correct;
             double[,] d = new double[r.Count() + 1, h.Count() + 1];
