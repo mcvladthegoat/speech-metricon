@@ -85,20 +85,20 @@ namespace SpeechMetricon
                 double[] lineResultRates = new double[2];
                 this.CalculateWR(line, outStrings[index], ref lineResultMarkup, ref lineResultRates);
                 this.markedUpStrings.Add(lineResultMarkup);
-                string[] row = new string[] { line, outStrings[index], lineResultRates[0].ToString(), lineResultRates[1].ToString() };
+                string[] row = new string[] { line, outStrings[index], lineResultRates[0].ToString("0.##"), lineResultRates[1].ToString("0.##") };
                 dataGridView1.Rows.Add(row);
                 System.Diagnostics.Debug.WriteLine(row);
                 index++;
-                if (lineResultRates[0] == 0)
+                if (lineResultRates[0] > 0)
                 {
                     this.SERValue++;
                 }
                 this.WERValue += lineResultRates[0];
                 this.WCRValue += lineResultRates[1];
             }
-            this.wcrLabel.Text = (WCRValue / this.inStrings.Count()).ToString();
-            this.werLabel.Text = (WERValue / this.inStrings.Count()).ToString();
-            this.serLabel.Text = SERValue.ToString();
+            this.wcrLabel.Text = (WCRValue / this.inStrings.Count()).ToString("0.##");
+            this.werLabel.Text = (WERValue / this.inStrings.Count()).ToString("0.##");
+            this.serLabel.Text = SERValue.ToString("0.##");
             this.totalLinesLabel.Text = this.inStrings.Count().ToString();
         }
 
@@ -273,6 +273,11 @@ namespace SpeechMetricon
         }
 
         private void makeReportRTFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
