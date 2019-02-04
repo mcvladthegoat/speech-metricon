@@ -17,7 +17,7 @@ Install-Package EPPlus
 
 ## How-To: usage
 
-[![Screenshot](docs/example.png)]
+![Screenshot](docs/example.png)
 
 To begin to work with SpeechMetricon (further in README called "SP"), click `File` - `Open Source`. Then, open plain text file with **references** (input sentences) and press `Open`. Then, choose file with **hypothesis** (output, Speech-To-Text recognition result) and press `Open`.
 
