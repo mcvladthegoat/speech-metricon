@@ -211,6 +211,9 @@ namespace SpeechMetricon
         private void makeReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "CSV file (*.csv)|*.csv";
+            saveFileDialog1.DefaultExt = "csv";
+            saveFileDialog1.AddExtension = true;
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
             {
                 return;
@@ -309,6 +312,9 @@ namespace SpeechMetricon
         private void makeReportToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "MS Excel 2007+ (*.xlsx)|*.xlsx";
+            saveFileDialog1.DefaultExt = "xlsx";
+            saveFileDialog1.AddExtension = true;
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
             {
                 return;

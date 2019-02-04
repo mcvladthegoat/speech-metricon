@@ -27,6 +27,8 @@ The bottom part of window shows how selected row in the table can be parsed and 
 Right area has information about other metrics (SER, Average WER, Average WCR).
 To save report in XLSX or CSV just press `File` - `Make report CSV` or `Make report XLSX`.
 
+Start using program with examples. First of all, open `input_list.txt`. Next, open `output_list.txt`. Enjoy!
+
 ## Metrics explanation
 
 **WER** detects the percent of recognition errors.
@@ -38,3 +40,4 @@ To save report in XLSX or CSV just press `File` - `Make report CSV` or `Make rep
 ![WCR equation](http://latex.codecogs.com/svg.latex?WCR%3D%5Cfrac%7BN+-+Substitutions%2BDeletions%7D%7BN%7D%2C)
 
 **SER** shows the percent of sentences with 1 or more errors.
+
