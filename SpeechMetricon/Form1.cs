@@ -98,6 +98,10 @@ namespace SpeechMetricon
                 this.WERValue += lineResultRates[0];
                 this.WCRValue += lineResultRates[1];
             }
+            DataGridViewColumn column1 = dataGridView1.Columns[0];
+            DataGridViewColumn column2 = dataGridView1.Columns[1];
+            column1.Width = 350; column2.Width = 350;
+
             this.WERValue /= this.inStrings.Count();
             this.WCRValue /= this.inStrings.Count();
             this.wcrLabel.Text = WCRValue.ToString("0.##");
@@ -340,6 +344,11 @@ namespace SpeechMetricon
                 FileInfo excelFile = new FileInfo(saveFileDialog1.FileName);
                 excel.SaveAs(excelFile);
             }
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
