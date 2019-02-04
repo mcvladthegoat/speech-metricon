@@ -37,7 +37,13 @@ Start using program with examples. First of all, open `input_list.txt`. Next, op
 
 **WCR** detects the percent of correctly recognized words and ignores *Insertion* errors.
 
-![WCR equation](http://latex.codecogs.com/svg.latex?WCR%3D%5Cfrac%7BN+-+Substitutions%2BDeletions%7D%7BN%7D%2C)
+![WCR equation](http://latex.codecogs.com/svg.latex?WCR%3D%5Cfrac%7BN%20-%20Substitutions%20+%20Deletions%7D%7BN%7D)
 
 **SER** shows the percent of sentences with 1 or more errors.
+
+## What else?
+
+ - [ ] Sensitivity settings
+ - [ ] Adding custom alias dictionaries
+ - [ ] Ability to change word classes after calculation
 
