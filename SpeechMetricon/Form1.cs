@@ -31,6 +31,7 @@ namespace SpeechMetricon
             inStrings = new List<string>();
             outStrings = new List<string>();
             markedUpStrings = new List<string>();
+
         }
 
         List<string> inStrings, outStrings, markedUpStrings;
@@ -86,6 +87,7 @@ namespace SpeechMetricon
                 string lineResultMarkup = "";
                 double[] lineResultRates = new double[2];
                 this.CalculateWR(line, outStrings[index], ref lineResultMarkup, ref lineResultRates);
+                //Console.WriteLine("{0}, {1}", index, lineResultMarkup);
                 this.markedUpStrings.Add(lineResultMarkup);
                 string[] row = new string[] { line, outStrings[index], lineResultRates[0].ToString("0.##"), lineResultRates[1].ToString("0.##") };
                 dataGridView1.Rows.Add(row);
@@ -104,6 +106,7 @@ namespace SpeechMetricon
 
             this.WERValue /= this.inStrings.Count();
             this.WCRValue /= this.inStrings.Count();
+            this.SERValue /= this.inStrings.Count();
             this.wcrLabel.Text = WCRValue.ToString("0.##");
             this.werLabel.Text = WERValue.ToString("0.##");
             this.serLabel.Text = SERValue.ToString("0.##");
@@ -116,8 +119,8 @@ namespace SpeechMetricon
             var punctuationIn = a.Where(Char.IsPunctuation).Distinct().ToArray();
             var punctuationOut = b.Where(Char.IsPunctuation).Distinct().ToArray();
 
-            var r = a.ToLower().Split().Select(z => z.Trim(punctuationIn));
-            var h = b.ToLower().Split().Select(z => z.Trim(punctuationOut));
+            var r = a.ToLower().Split(' ').Select(z => z.Trim(punctuationIn));
+            var h = b.ToLower().Split(' ').Select(z => z.Trim(punctuationOut));
 
             double deletion, substitution, insertion, correct;
             double[,] d = new double[r.Count() + 1, h.Count() + 1];
@@ -181,7 +184,7 @@ namespace SpeechMetricon
                 {
                     x--;
                     y--;
-                    resultMarkup = " _sub(" + r.ElementAt(x) + "," + h.ElementAt(y) + ") " + resultMarkup;
+                    resultMarkup = " _sub(" + h.ElementAt(y) + "," + r.ElementAt(x) + ") " + resultMarkup;
                 }
                 else if (d[x, y] == d[x - 1, y] + 1) //deletion
                 {
@@ -194,7 +197,9 @@ namespace SpeechMetricon
                     resultMarkup = " _ins(" + h.ElementAt(y) + ") " + resultMarkup;
 
                 }
+                else throw new Exception(); //TODO refactor asap
             }
+
             wcr =  (wcr / r.Count()) * 100;
             rates = new double[] { wer, wcr };
         }
@@ -244,19 +249,22 @@ namespace SpeechMetricon
         {
             if (e.StateChanged != DataGridViewElementStates.Selected) return;
             richTextBox1.Clear();
-            var splitted = this.markedUpStrings[e.Row.Index].Split(' ');
+            var splitted = this.markedUpStrings[e.Row.Index].Split().Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            int dels = 0, inserts = 0, substs = 0, correctWords = splitted.Length;
             foreach(var k in splitted){
                 if (k.Contains("_del")) //deletion
                 {
                     string buffer = k.Substring(k.IndexOf('(') + 1, k.IndexOf(')') - k.IndexOf('(') - 1);
                     richTextBox1.SelectionBackColor = Color.Red;
                     richTextBox1.AppendText(buffer);
+                    dels++;
                 }
                 else if (k.Contains("_ins")) //insertion
                 {
                     string buffer = k.Substring(k.IndexOf("(") + 1, k.IndexOf(")")- k.IndexOf('(') - 1);
                     richTextBox1.SelectionBackColor = Color.Aqua;
                     richTextBox1.AppendText(buffer);
+                    inserts++;
                 }
                 else if (k.Contains("_sub")) //substitution
                 {
@@ -267,6 +275,7 @@ namespace SpeechMetricon
                     richTextBox1.SelectionFont = new Font(richTextBox1.Font, FontStyle.Regular);
                     buffer = k.Substring(k.IndexOf(","), k.Length-1 - k.IndexOf(","));
                     richTextBox1.AppendText(buffer);
+                    substs++;
                 }
                 else //correct word
                 {
@@ -276,6 +285,13 @@ namespace SpeechMetricon
                 richTextBox1.SelectionBackColor = Color.White;
                 richTextBox1.AppendText(" ");
             }
+
+            correctWords = correctWords - dels - substs;
+            this.delLabel.Text = dels.ToString();
+            this.insertLabel.Text = inserts.ToString();
+            this.substLabel.Text = substs.ToString();
+            this.correctLabel.Text = correctWords.ToString();
+
 
             //richTextBox1.AppendText(this.markedUpStrings[e.Row.Index]);
         }
@@ -349,6 +365,22 @@ namespace SpeechMetricon
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void label8_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawRectangle(new Pen(Color.Red), new Rectangle(0, 0, ((Label)sender).Width - 1, ((Label)sender).Height - 1));
+        }
+
+        private void label6_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawRectangle(new Pen(Color.Aqua), new Rectangle(0, 0, ((Label)sender).Width - 1, ((Label)sender).Height - 1));
+
+        }
+
+        private void label2_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawRectangle(new Pen(Color.Orange), new Rectangle(0, 0, ((Label)sender).Width - 1, ((Label)sender).Height - 1));
         }
     }
 }

@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openLeftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.makeReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.makeReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -43,6 +44,14 @@
             this.pronounsCheckBox2 = new System.Windows.Forms.CheckBox();
             this.caseSensitiveCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.correctLabel = new System.Windows.Forms.Label();
+            this.substLabel = new System.Windows.Forms.Label();
+            this.insertLabel = new System.Windows.Forms.Label();
+            this.delLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.totalLinesLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.serLabel = new System.Windows.Forms.Label();
@@ -51,7 +60,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.makeReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -65,14 +73,14 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 33);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 33, 3, 3);
@@ -130,6 +138,13 @@
             this.makeReportToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.makeReportToolStripMenuItem.Text = "Make report CSV";
             this.makeReportToolStripMenuItem.Click += new System.EventHandler(this.makeReportToolStripMenuItem_Click);
+            // 
+            // makeReportToolStripMenuItem1
+            // 
+            this.makeReportToolStripMenuItem1.Name = "makeReportToolStripMenuItem1";
+            this.makeReportToolStripMenuItem1.Size = new System.Drawing.Size(167, 22);
+            this.makeReportToolStripMenuItem1.Text = "Make report XLSX";
+            this.makeReportToolStripMenuItem1.Click += new System.EventHandler(this.makeReportToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -210,6 +225,14 @@
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.correctLabel);
+            this.groupBox2.Controls.Add(this.substLabel);
+            this.groupBox2.Controls.Add(this.insertLabel);
+            this.groupBox2.Controls.Add(this.delLabel);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.totalLinesLabel);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.serLabel);
@@ -220,15 +243,90 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(1048, 149);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(125, 170);
+            this.groupBox2.Size = new System.Drawing.Size(125, 314);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Summary";
             // 
+            // correctLabel
+            // 
+            this.correctLabel.AutoSize = true;
+            this.correctLabel.Location = new System.Drawing.Point(81, 289);
+            this.correctLabel.Name = "correctLabel";
+            this.correctLabel.Size = new System.Drawing.Size(10, 13);
+            this.correctLabel.TabIndex = 15;
+            this.correctLabel.Text = "-";
+            // 
+            // substLabel
+            // 
+            this.substLabel.AutoSize = true;
+            this.substLabel.Location = new System.Drawing.Point(81, 255);
+            this.substLabel.Name = "substLabel";
+            this.substLabel.Size = new System.Drawing.Size(10, 13);
+            this.substLabel.TabIndex = 14;
+            this.substLabel.Text = "-";
+            // 
+            // insertLabel
+            // 
+            this.insertLabel.AutoSize = true;
+            this.insertLabel.Location = new System.Drawing.Point(81, 217);
+            this.insertLabel.Name = "insertLabel";
+            this.insertLabel.Size = new System.Drawing.Size(10, 13);
+            this.insertLabel.TabIndex = 13;
+            this.insertLabel.Text = "-";
+            // 
+            // delLabel
+            // 
+            this.delLabel.AutoSize = true;
+            this.delLabel.Location = new System.Drawing.Point(81, 179);
+            this.delLabel.Name = "delLabel";
+            this.delLabel.Size = new System.Drawing.Size(10, 13);
+            this.delLabel.TabIndex = 12;
+            this.delLabel.Text = "-";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 289);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Correct:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 255);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Substitutions:";
+            this.label2.Paint += new System.Windows.Forms.PaintEventHandler(this.label2_Paint);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(8, 217);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Insertions:";
+            this.label6.Paint += new System.Windows.Forms.PaintEventHandler(this.label6_Paint);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(8, 179);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(54, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Deletions:";
+            this.label8.Paint += new System.Windows.Forms.PaintEventHandler(this.label8_Paint);
+            // 
             // totalLinesLabel
             // 
             this.totalLinesLabel.AutoSize = true;
-            this.totalLinesLabel.Location = new System.Drawing.Point(69, 141);
+            this.totalLinesLabel.Location = new System.Drawing.Point(81, 141);
             this.totalLinesLabel.Name = "totalLinesLabel";
             this.totalLinesLabel.Size = new System.Drawing.Size(10, 13);
             this.totalLinesLabel.TabIndex = 7;
@@ -246,7 +344,7 @@
             // serLabel
             // 
             this.serLabel.AutoSize = true;
-            this.serLabel.Location = new System.Drawing.Point(69, 107);
+            this.serLabel.Location = new System.Drawing.Point(81, 107);
             this.serLabel.Name = "serLabel";
             this.serLabel.Size = new System.Drawing.Size(10, 13);
             this.serLabel.TabIndex = 5;
@@ -255,7 +353,7 @@
             // werLabel
             // 
             this.werLabel.AutoSize = true;
-            this.werLabel.Location = new System.Drawing.Point(69, 69);
+            this.werLabel.Location = new System.Drawing.Point(81, 69);
             this.werLabel.Name = "werLabel";
             this.werLabel.Size = new System.Drawing.Size(10, 13);
             this.werLabel.TabIndex = 4;
@@ -264,7 +362,7 @@
             // wcrLabel
             // 
             this.wcrLabel.AutoSize = true;
-            this.wcrLabel.Location = new System.Drawing.Point(69, 31);
+            this.wcrLabel.Location = new System.Drawing.Point(81, 31);
             this.wcrLabel.Name = "wcrLabel";
             this.wcrLabel.Size = new System.Drawing.Size(10, 13);
             this.wcrLabel.TabIndex = 3;
@@ -296,13 +394,6 @@
             this.label3.Size = new System.Drawing.Size(56, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "WCR (%) :";
-            // 
-            // makeReportToolStripMenuItem1
-            // 
-            this.makeReportToolStripMenuItem1.Name = "makeReportToolStripMenuItem1";
-            this.makeReportToolStripMenuItem1.Size = new System.Drawing.Size(167, 22);
-            this.makeReportToolStripMenuItem1.Text = "Make report XLSX";
-            this.makeReportToolStripMenuItem1.Click += new System.EventHandler(this.makeReportToolStripMenuItem1_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -374,6 +465,14 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ToolStripMenuItem makeReportToolStripMenuItem1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label correctLabel;
+        private System.Windows.Forms.Label substLabel;
+        private System.Windows.Forms.Label insertLabel;
+        private System.Windows.Forms.Label delLabel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
     }
 }
 
