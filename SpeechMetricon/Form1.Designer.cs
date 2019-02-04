@@ -52,6 +52,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.makeReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -98,7 +99,8 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openLeftToolStripMenuItem,
-            this.makeReportToolStripMenuItem});
+            this.makeReportToolStripMenuItem,
+            this.makeReportToolStripMenuItem1});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -298,6 +300,13 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "WCR (%) :";
             // 
+            // makeReportToolStripMenuItem1
+            // 
+            this.makeReportToolStripMenuItem1.Name = "makeReportToolStripMenuItem1";
+            this.makeReportToolStripMenuItem1.Size = new System.Drawing.Size(167, 22);
+            this.makeReportToolStripMenuItem1.Text = "Make report XLSX";
+            this.makeReportToolStripMenuItem1.Click += new System.EventHandler(this.makeReportToolStripMenuItem1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -353,6 +362,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label totalLinesLabel;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ToolStripMenuItem makeReportToolStripMenuItem1;
     }
 }
 

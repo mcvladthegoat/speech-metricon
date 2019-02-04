@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using OfficeOpenXml;
+
 
 namespace SpeechMetricon
 {
@@ -96,8 +98,10 @@ namespace SpeechMetricon
                 this.WERValue += lineResultRates[0];
                 this.WCRValue += lineResultRates[1];
             }
-            this.wcrLabel.Text = (WCRValue / this.inStrings.Count()).ToString("0.##");
-            this.werLabel.Text = (WERValue / this.inStrings.Count()).ToString("0.##");
+            this.WERValue /= this.inStrings.Count();
+            this.WCRValue /= this.inStrings.Count();
+            this.wcrLabel.Text = WCRValue.ToString("0.##");
+            this.werLabel.Text = WERValue.ToString("0.##");
             this.serLabel.Text = SERValue.ToString("0.##");
             this.totalLinesLabel.Text = this.inStrings.Count().ToString();
         }
@@ -280,6 +284,62 @@ namespace SpeechMetricon
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void makeReportToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            using (ExcelPackage excel = new ExcelPackage())
+            {
+                excel.Workbook.Worksheets.Add("Results");
+                excel.Workbook.Worksheets.Add("Additional info");
+
+                var headerRow = new List<string[]>()
+                {
+                    new string[] { "Reference (source string)" ,"Hypothesis (result string)" ,"WER(%)", "WCR(%)", "      ", "SER(%)", "Average WER(%)", "Average WCR(%)"}
+                };
+
+                string headerRange = "A1:H1";
+
+                var worksheet = excel.Workbook.Worksheets["Results"];
+                worksheet.Cells[headerRange].LoadFromArrays(headerRow);
+                var summaryRow = new List<object[]>()
+                {
+                    new object[] { this.SERValue.ToString("0.##"), this.WERValue.ToString("0.##"), this.WCRValue.ToString("0.##")}
+                };
+                worksheet.Cells["F2:H2"].LoadFromArrays(summaryRow);
+
+                worksheet.Cells[headerRange].Style.Font.Bold = true;
+                worksheet.Cells[headerRange].Style.Font.Size = 14;
+
+                worksheet.Cells[1, 1, 1, 4].AutoFitColumns();
+                worksheet.Cells[1, 6, 1, 8].AutoFitColumns();
+
+                worksheet.Cells[1, 6, 1, 8].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheet.Cells[1, 6, 1, 8].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+
+                var cellData = new List<object[]>();
+                for (int i = 0; i < this.inStrings.Count; i++)
+                {
+                    cellData.Add(new object[] { this.inStrings[i], this.outStrings[i], dataGridView1.Rows[i].Cells[2].Value, dataGridView1.Rows[i].Cells[3].Value });
+                }
+
+                worksheet.Cells[2, 1].LoadFromArrays(cellData);
+
+                //worksheet.Cells.AutoFitColumns();
+                worksheet.Column(1).Width = 50;
+                worksheet.Column(2).Width = 50;
+
+                worksheet.Cells[2, 1, cellData.Count - 1, 4].Style.WrapText = true;
+
+                FileInfo excelFile = new FileInfo(saveFileDialog1.FileName);
+                excel.SaveAs(excelFile);
+            }
         }
     }
 }
