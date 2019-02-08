@@ -1,4 +1,6 @@
 # SpeechMetricon
+Small utility which helps to get most important metrics for STT. Inspired by [@imalic3/python-word-error-rate](https://github.com/imalic3/python-word-error-rate) project.
+
 
 ## Features
 
